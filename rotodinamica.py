@@ -1,6 +1,5 @@
-from sympy import *
-from sympy.physics.mechanics import dynamicsymbols, init_vprinting, msubs
-from IPython.display import display
+from sympy import Symbol, symbols, solve, dsolve, Eq, lambdify
+from sympy.physics.mechanics import dynamicsymbols, init_vprinting
 import matplotlib.pyplot as plt
 import scipy as sp
 
@@ -27,7 +26,8 @@ eq4 = Id*(psi.diff(t, t)) - Ip*omega*(teta.diff(t)) + (-a*kx1 + b*kx2)*u + (a**2
 
 system = [eq1, eq2, eq3, eq4]
 
-class Rigid_Rotor(object):
+
+class RigidRotor(object):
     """
     This class creates a rotor object that has as attribute
     the equations of motion of a rigid rotor (see 3.4 of 'Dynamics
@@ -84,7 +84,7 @@ class Rigid_Rotor(object):
 
         Examples:
         Obtain equations for a rigid rotor with isotropic flexible supports:
-        >>> rot1 = Rigid_Rotor()
+        >>> rot1 = RigidRotor()
         >>> # subs1_ is used to simplify the equation
         >>> subs1_ = [(kx1 + kx2, kxt),
         ...           (ky1 + ky2, kyt),
