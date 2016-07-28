@@ -109,30 +109,20 @@ k_T*v(t) + m*Derivative(v(t), t, t), I_d*Derivative(theta(t), t, t) \
 - I_p*Omega*Derivative(theta(t), t) + k_C*u(t) + k_R*psi(t)]
 
         """
-        new_sys = []
-        for eq in self.model:
-            eq_ = eq.subs(parameters)
-            new_sys.append(eq_)
-            self.model = new_sys
+
+        self.model = [eq.subs(parameters) for eq in self.model]
 
     def solve_model(self, ics, d_ics):
-        model_soln = []
-        for eq in self.model:
-            model_soln.append(dsolve(eq))
+        model_soln = [dsolve(eq) for eq in self.model]
 
         def solve_constants(eq, ics, d_ics):
             udiff = Eq(d_ics[0][1], eq.rhs.diff(t))
-            C_1 = solve(eq.subs(ics), {C1, C2})
-            C_2 = solve(udiff.subs(t, 0), {C1, C2})
-            consts = {}
-            consts.update(C_1[0])
-            consts.update(C_2[0])
+            system = [eq.subs(ics), udiff.subs(t, 0)]
+            consts = solve(system, [C1, C2])
             return eq.subs(consts)
 
-        model_soln_f =[]
-        for eq in enumerate(model_soln[:len(ics)]):
-            soln = solve_constants(eq[1], ics[eq[0]], d_ics[eq[0]])
-            model_soln_f.append(soln)
+        model_soln_f = [solve_constants(eq[1], ics[eq[0]], d_ics[eq[0]])
+                        for eq in enumerate(model_soln[:len(ics)])]
 
         self.model_response = model_soln_f
         self.x = lambdify(t, model_soln_f[0].rhs, 'numpy')

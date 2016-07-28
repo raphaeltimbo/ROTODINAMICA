@@ -12,7 +12,7 @@ Thumbs.db
 .ipynb*check*/*
 .#.*
 \.ipynb_checkpoints/**
-.ipynb_checkpoints
+.ipynb_checkpoints/**
 *.pdf
 
 *.*~
