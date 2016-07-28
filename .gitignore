@@ -13,9 +13,10 @@ Thumbs.db
 .#.*
 \.ipynb_checkpoints/**
 .ipynb_checkpoints/**
+.ipynb*
 *.pdf
 
 *.*~
 __pycache__
 .idea/
-.ipynb_checkpoints
+.ipynb_checkpoints/
