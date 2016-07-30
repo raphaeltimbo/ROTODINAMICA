@@ -13,6 +13,9 @@ Thumbs.db
 .#.*
 \.ipynb_checkpoints/**
 .ipynb_checkpoints/**
+\.notebooks/**
+.notebooks/**
+.notebooks*
 .ipynb*
 *.pdf
 
@@ -20,3 +23,4 @@ Thumbs.db
 __pycache__
 .idea/
 .ipynb_checkpoints/
+.notebooks/
